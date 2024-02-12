@@ -1,0 +1,18 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .tool-versions
+      - name: install
+        run: npm install
+      - name: typecheck
+        run: npx tsc --noEmit
+      - name: lint
+        run: npm run lint
