@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.36
+    environment:
+      MYSQL_ROOT_PASSWORD: CHANGE ME
+      MYSQL_DATABASE: clorie
+    ports:
+      - '3306:3306'

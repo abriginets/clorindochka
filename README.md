@@ -31,3 +31,18 @@ $ node -v
 ```
 
 And that's it! You are good to go 🎆
+
+### Setting up production database
+
+Before deploying your own Clorinde bot to production, you must first to create a MySQL database. To do so you should first generate a unique password for your production database by executing the following command:
+
+```bash
+$ chmod +x ./scripts/generate-prod-db-pass.sh
+$ ./scripts/generate-prod-db-pass.sh
+```
+
+This will generate a password and put it into `docker/production/docker-compose.yml` for you. After that you can just `cd` into directory with this yaml and run
+
+```bash
+$ docker compose up -d
+```
