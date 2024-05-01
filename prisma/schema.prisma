@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model TimeEvent {
+  id                  String             @id @default(uuid())
+  name                String             @db.VarChar(100)
+  date                DateTime
+  guildId             String
+  category            TimeEventCategory  @relation(fields: [timeEventCategoryId], references: [id], onDelete: Cascade)
+  timeEventCategoryId String
+  createdAt           DateTime           @default(now())
+  deletedAt           DateTime?
+  timeEventChannel    TimeEventChannel[]
+}
+
+enum TimeEventChannelType {
+  title
+  timer
+}
+
+model TimeEventChannel {
+  id          String               @id @default(uuid())
+  type        TimeEventChannelType
+  timeEvent   TimeEvent            @relation(fields: [timeEventId], references: [id], onDelete: Cascade)
+  channelId   String               @unique
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @default(now())
+  deletedAt   DateTime?
+  timeEventId String
+}
+
+model TimeEventCategory {
+  id        String      @id @default(uuid())
+  name      String      @unique @db.VarChar(100)
+  TimeEvent TimeEvent[]
+}
