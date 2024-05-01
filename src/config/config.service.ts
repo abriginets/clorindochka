@@ -12,4 +12,8 @@ export class ConfigService {
   get SERVICE_NAME(): string {
     return this.nativeConfigService.getOrThrow('SERVICE_NAME');
   }
+
+  get DISCORD_TOKEN(): string {
+    return this.nativeConfigService.getOrThrow('DISCORD_TOKEN');
+  }
 }
